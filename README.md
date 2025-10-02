@@ -1,16 +1,91 @@
-# React + Vite
+# 🎤 Echo WPA - Grabador de Audio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web moderna para grabar y reproducir audio construida con React y Vite.
 
-Currently, two official plugins are available:
+## ✨ Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎙️ **Grabación de audio** en tiempo real
+- ▶️ **Reproducción** de grabaciones
+- ⏸️ **Controles de pausa** y reinicio
+- 📱 **Diseño responsive** y moderno
+- 🎨 **Interfaz intuitiva** con animaciones
 
-## React Compiler
+## 🚀 Instalación y Desarrollo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Instalar dependencias
+npm install
 
-## Expanding the ESLint configuration
+# Ejecutar en modo desarrollo
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Construir para producción
+npm run build
+
+# Previsualizar build de producción
+npm run preview
+```
+
+## 📦 Deploy en GitHub Pages
+
+### Configuración inicial
+
+1. **Crear repositorio en GitHub**:
+   - Ve a GitHub y crea un nuevo repositorio llamado `echo-wpa`
+   - Conecta tu repositorio local con GitHub:
+   ```bash
+   git remote add origin https://github.com/TU-USUARIO/echo-wpa.git
+   ```
+
+2. **Actualizar la URL en package.json**:
+   - Reemplaza `TU-USUARIO` en la línea `homepage` del `package.json` con tu nombre de usuario de GitHub
+
+### Deploy automático
+
+```bash
+# Hacer deploy a GitHub Pages
+npm run deploy
+```
+
+Este comando:
+- Construye la aplicación (`npm run build`)
+- Sube los archivos a la rama `gh-pages`
+- Tu aplicación estará disponible en: `https://TU-USUARIO.github.io/echo-wpa`
+
+### Deploy manual
+
+Si prefieres hacer el deploy manualmente:
+
+```bash
+# Construir la aplicación
+npm run build
+
+# Subir a GitHub Pages
+npx gh-pages -d dist
+```
+
+## 🔧 Configuración
+
+- **Base URL**: Configurada para GitHub Pages (`/echo-wpa/`)
+- **Build**: Optimizado para producción con Vite
+- **Compatibilidad**: Funciona en navegadores modernos con soporte para MediaRecorder API
+
+## 📱 Uso
+
+1. Abre la aplicación en tu navegador
+2. Permite el acceso al micrófono cuando se solicite
+3. Haz clic en "Iniciar Grabación" para comenzar
+4. Haz clic en "Detener Grabación" cuando termines
+5. Usa los controles para reproducir tu grabación
+
+## 🛠️ Tecnologías
+
+- **React 19** - Framework de UI
+- **Vite** - Build tool y dev server
+- **MediaRecorder API** - Grabación de audio
+- **CSS3** - Estilos modernos con gradientes y animaciones
+- **GitHub Pages** - Hosting estático
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
