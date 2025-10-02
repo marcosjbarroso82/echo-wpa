@@ -9,6 +9,10 @@ Una aplicación web moderna para grabar y reproducir audio construida con React 
 - ⏸️ **Controles de pausa** y reinicio
 - 📱 **Diseño responsive** y moderno
 - 🎨 **Interfaz intuitiva** con animaciones
+- 📲 **PWA (Progressive Web App)** - Instalable en dispositivos
+- 🔄 **Actualizaciones automáticas** con Service Worker
+- 📴 **Funcionalidad offline** básica
+- 🚀 **Instalación rápida** desde el navegador
 
 ## 🚀 Instalación y Desarrollo
 
@@ -72,11 +76,25 @@ npx gh-pages -d dist
 
 ## 📱 Uso
 
+### Uso básico
 1. Abre la aplicación en tu navegador
 2. Permite el acceso al micrófono cuando se solicite
 3. Haz clic en "Iniciar Grabación" para comenzar
 4. Haz clic en "Detener Grabación" cuando termines
 5. Usa los controles para reproducir tu grabación
+
+### Instalación como PWA
+1. **En móviles**: Busca el botón "Instalar" en la barra de direcciones o en el menú del navegador
+2. **En escritorio**: Aparecerá un banner de instalación automáticamente
+3. **Instalación manual**: Ve al menú del navegador → "Instalar Echo WPA"
+4. Una vez instalada, la app funcionará como una aplicación nativa
+
+### Características PWA
+- **Instalación**: Se puede instalar en cualquier dispositivo
+- **Icono personalizado**: Aparece en el escritorio/pantalla de inicio
+- **Modo standalone**: Se abre sin la barra del navegador
+- **Actualizaciones**: Se actualiza automáticamente cuando hay nuevas versiones
+- **Offline**: Funciona básicamente sin conexión a internet
 
 ## 🛠️ Tecnologías
 
@@ -84,6 +102,8 @@ npx gh-pages -d dist
 - **Vite** - Build tool y dev server
 - **MediaRecorder API** - Grabación de audio
 - **CSS3** - Estilos modernos con gradientes y animaciones
+- **PWA** - Progressive Web App con Service Worker
+- **Workbox** - Service Worker y caching
 - **GitHub Pages** - Hosting estático
 
 ## 📄 Licencia

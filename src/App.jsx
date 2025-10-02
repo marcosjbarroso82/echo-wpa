@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 import './App.css'
 
 function App() {
@@ -7,10 +8,50 @@ function App() {
   const [audioBlob, setAudioBlob] = useState(null)
   const [audioUrl, setAudioUrl] = useState(null)
   const [recordingTime, setRecordingTime] = useState(0)
+  const [deferredPrompt, setDeferredPrompt] = useState(null)
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   
   const mediaRecorderRef = useRef(null)
   const audioRef = useRef(null)
   const timerRef = useRef(null)
+
+  // PWA Service Worker registration
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(r) {
+      console.log('SW Registered: ' + r)
+    },
+    onRegisterError(error) {
+      console.log('SW registration error', error)
+    },
+  })
+
+  // PWA Install prompt
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setShowInstallPrompt(true)
+    }
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    }
+  }, [])
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      console.log(`User response to the install prompt: ${outcome}`)
+      setDeferredPrompt(null)
+      setShowInstallPrompt(false)
+    }
+  }
 
   const startRecording = async () => {
     try {
@@ -89,6 +130,38 @@ function App() {
   return (
     <div className="app">
       <h1>🎤 Grabador de Audio</h1>
+      
+      {/* PWA Install Prompt */}
+      {showInstallPrompt && (
+        <div className="install-prompt">
+          <div className="install-content">
+            <span>📱 Instala Echo WPA en tu dispositivo</span>
+            <div className="install-buttons">
+              <button className="install-btn" onClick={handleInstallClick}>
+                Instalar
+              </button>
+              <button 
+                className="dismiss-btn" 
+                onClick={() => setShowInstallPrompt(false)}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PWA Update Available */}
+      {needRefresh && (
+        <div className="update-prompt">
+          <div className="update-content">
+            <span>🔄 Nueva versión disponible</span>
+            <button className="update-btn" onClick={() => updateServiceWorker(true)}>
+              Actualizar
+            </button>
+          </div>
+        </div>
+      )}
       
       <div className="recorder-container">
         <div className="status-section">
