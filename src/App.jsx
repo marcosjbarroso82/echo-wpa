@@ -10,6 +10,7 @@ function App() {
   const [recordingTime, setRecordingTime] = useState(0)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
+  const [isLoopEnabled, setIsLoopEnabled] = useState(false)
   
   const mediaRecorderRef = useRef(null)
   const audioRef = useRef(null)
@@ -42,6 +43,24 @@ function App() {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     }
   }, [])
+
+  // Handle audio ended event for loop control
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio) {
+      const handleEnded = () => {
+        if (!isLoopEnabled) {
+          setIsPlaying(false)
+        }
+      }
+      
+      audio.addEventListener('ended', handleEnded)
+      
+      return () => {
+        audio.removeEventListener('ended', handleEnded)
+      }
+    }
+  }, [isLoopEnabled])
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
@@ -98,6 +117,7 @@ function App() {
 
   const playRecording = () => {
     if (audioUrl && audioRef.current) {
+      audioRef.current.loop = isLoopEnabled
       audioRef.current.play()
       setIsPlaying(true)
     }
@@ -199,6 +219,22 @@ function App() {
         {audioUrl && (
           <div className="playback-section">
             <h3>Reproducir Grabación</h3>
+            
+            {/* Loop Toggle */}
+            <div className="loop-control">
+              <label className="loop-toggle">
+                <input
+                  type="checkbox"
+                  checked={isLoopEnabled}
+                  onChange={(e) => setIsLoopEnabled(e.target.checked)}
+                />
+                <span className="toggle-slider"></span>
+                <span className="toggle-label">
+                  🔁 Reproducción en loop
+                </span>
+              </label>
+            </div>
+            
             <div className="playback-controls">
               {!isPlaying ? (
                 <button 
@@ -227,7 +263,6 @@ function App() {
             <audio 
               ref={audioRef}
               src={audioUrl}
-              onEnded={() => setIsPlaying(false)}
               controls
               className="audio-player"
             />
