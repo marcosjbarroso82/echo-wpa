@@ -30,6 +30,7 @@ body {
   max-width: 600px;
   width: 100%;
   text-align: center;
+  margin-top: 60px; /* Espacio para el mensaje del auricular */
 }
 
 .app h1 {
@@ -169,6 +170,112 @@ button:disabled {
 
 .reset-btn:hover {
   background: linear-gradient(45deg, #8e44ad, #7d3c98);
+}
+
+/* Sección de prueba del auricular Bluetooth */
+.bluetooth-test-section {
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 2px solid rgba(52, 152, 219, 0.2);
+  margin-top: 1rem;
+}
+
+.test-btn {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.test-btn:hover {
+  background: linear-gradient(45deg, #2980b9, #1f618d);
+}
+
+.test-info {
+  margin-top: 0.5rem;
+}
+
+.test-info small {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.debug-info {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(52, 152, 219, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(52, 152, 219, 0.1);
+}
+
+.debug-info small {
+  color: #3498db;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* Panel de Debug */
+.debug-panel {
+  background: rgba(52, 73, 94, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 2px solid rgba(52, 73, 94, 0.2);
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.debug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.debug-panel h4 {
+  color: #34495e;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.clear-debug-btn {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: auto;
+}
+
+.clear-debug-btn:hover {
+  background: linear-gradient(45deg, #c0392b, #a93226);
+  transform: translateY(-1px);
+}
+
+.debug-log {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+}
+
+.debug-entry {
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.debug-entry small {
+  color: #2c3e50;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 /* Sección de reproducción */

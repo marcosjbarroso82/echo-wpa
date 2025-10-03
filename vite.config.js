@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-icon.svg'],
       manifest: {
         name: 'Echo WPA - Grabador de Audio',
         short_name: 'Echo WPA',
@@ -43,6 +43,9 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true
+      },
+      devOptions: {
+        enabled: true
       }
     })
   ],

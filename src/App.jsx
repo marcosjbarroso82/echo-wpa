@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
+import { useBluetoothHeadphone } from './hooks/useBluetoothHeadphone'
+import BluetoothMessage from './components/BluetoothMessage'
 import './App.css'
 
 function App() {
@@ -15,6 +17,9 @@ function App() {
   const mediaRecorderRef = useRef(null)
   const audioRef = useRef(null)
   const timerRef = useRef(null)
+
+  // Hook para manejar eventos del auricular Bluetooth
+  const { lastEventTime, isSupported, simulateEvent, debugInfo, clearDebugInfo } = useBluetoothHeadphone()
 
   // PWA Service Worker registration
   const {
@@ -149,6 +154,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* Mensaje del auricular Bluetooth */}
+      <BluetoothMessage lastEventTime={lastEventTime} isSupported={isSupported} />
+      
       <h1>🎤 Grabador de Audio</h1>
       
       {/* PWA Install Prompt */}
@@ -214,6 +222,55 @@ function App() {
               ⏹️ Detener Grabación
             </button>
           )}
+        </div>
+
+        {/* Botón de prueba para auricular Bluetooth */}
+        <div className="bluetooth-test-section">
+          <button 
+            className="test-btn"
+            onClick={simulateEvent}
+            title="Simular botón del auricular Bluetooth (para pruebas en navegador)"
+          >
+            🎧 Probar Botón del Auricular
+          </button>
+          <div className="test-info">
+            <small>
+              {isSupported 
+                ? "✅ Soporte para auricular Bluetooth activado" 
+                : "⚠️ Soporte limitado - usa el botón de prueba"
+              }
+            </small>
+            <div className="debug-info">
+              <small>
+                💡 Usa el control remoto de media o auriculares Bluetooth para probar
+              </small>
+            </div>
+          </div>
+        </div>
+
+        {/* Panel de Debug */}
+        <div className="debug-panel">
+          <div className="debug-header">
+            <h4>🔍 Panel de Debug</h4>
+            <button 
+              className="clear-debug-btn"
+              onClick={clearDebugInfo}
+              title="Limpiar log de debug"
+            >
+              🧹 Limpiar
+            </button>
+          </div>
+          <div className="debug-log">
+            {debugInfo.length === 0 ? (
+              <small>Esperando eventos multimedia... Usa el control remoto de media o auriculares Bluetooth.</small>
+            ) : (
+              debugInfo.map((info, index) => (
+                <div key={index} className="debug-entry">
+                  <small>{info}</small>
+                </div>
+              ))
+            )}
+          </div>
         </div>
 
         {audioUrl && (
