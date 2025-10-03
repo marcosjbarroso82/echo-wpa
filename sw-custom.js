@@ -96,4 +96,28 @@ self.addEventListener('sync', (event) => {
   }
 })
 
+// Manejar mensajes del cliente para eventos de auricular
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'HEADPHONE_EVENT') {
+    console.log('Service Worker: Evento de auricular recibido en segundo plano')
+    
+    // Notificar a todos los clientes sobre el evento
+    event.waitUntil(
+      self.clients.matchAll().then(clients => {
+        clients.forEach(client => {
+          client.postMessage({
+            type: 'HEADPHONE_EVENT_BACKGROUND',
+            data: event.data.data
+          })
+        })
+      })
+    )
+  }
+})
+
+// Mantener el service worker activo para eventos multimedia
+self.addEventListener('backgroundsync', (event) => {
+  console.log('Service Worker: Background sync para eventos multimedia')
+})
+
 console.log('Service Worker: Cargado correctamente')
